@@ -5,8 +5,8 @@ import {useParams, usePathname} from "next/navigation";
 import Link from "next/link";
 
 export function MainNav({
-	className,
-	...props
+							className,
+							...props
 						}: React.HTMLAttributes<HTMLElement>) {
 	const pathname = usePathname()
 	const params = useParams()
@@ -24,6 +24,12 @@ export function MainNav({
 
 		},
 		{
+			href: `/${params.storeId}/categories`,
+			label: 'Categories',
+			active: pathname === `/${params.storeId}/categories`,
+
+		},
+		{
 			href: `/${params.storeId}/settings`,
 			label: 'Settings',
 			active: pathname === `/${params.storeId}/settings`,
@@ -34,9 +40,10 @@ export function MainNav({
 	return (
 		<nav className={cn("flex items-center space-x-4 lg:space-x-6", className)}>
 			{routes.map(route => (
-				<Link href={route.href} key={route.href} className={cn("text-sm font-medium transition-colors hover:text-primary",
-					route.active ? "text-black dark:text-white" : "text-muted-foreground"
-				)}>
+				<Link href={route.href} key={route.href}
+					  className={cn("text-sm font-medium transition-colors hover:text-primary",
+						  route.active ? "text-black dark:text-white" : "text-muted-foreground"
+					  )}>
 					{route.label}
 				</Link>
 			))}
